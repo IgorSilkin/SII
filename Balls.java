@@ -3,14 +3,15 @@ import java.util.Random;
 
 public class Balls {
     int row = 3;
-    int column = 3;
+    int column = 4;
 
     int maxBallsArray[] = new int[column];
     int array[][] = new int[row][column];
 
-    public void addBalls(){
-        final Random rand = new Random();
+    boolean finish = false;
+    final Random rand = new Random();
 
+    public void addBalls(){
         int k;
         boolean ok;
 
@@ -33,7 +34,6 @@ public class Balls {
     }
 
     public void moveUp(int col){
-        col--;
         int k = array[0][col];
 
         for(int i = 0; i < row - 1; i++){
@@ -42,7 +42,6 @@ public class Balls {
         array[row-1][col] = k;
     }
     public void moveLeft(int row){
-        row--;
         int k = array[row][0];
         for(int i = 0; i < column - 1; i++){
             array[row][i] = array[row][i+1];
@@ -51,11 +50,54 @@ public class Balls {
     }
 
     public void show(){
+        System.out.println();
         for(int i = 0; i < row; i++){
             for(int j = 0; j < column; j++){
                 System.out.print(array[i][j] + "\t");
             }
             System.out.println();
+        }
+    }
+    public void search(){
+        int k;
+        while (finish == false){
+            k = rand.nextInt(2);
+            if(k == 0){
+                moveUp(rand.nextInt(column));
+            }else {
+                moveLeft(rand.nextInt(row));
+            }
+
+            if(
+                array[0][0] == array[1][0] &&
+                array[1][0] == array[2][0] &&
+                array[0][1] == array[1][1] &&
+                array[1][1] == array[2][1] &&
+                array[0][2] == array[1][2] &&
+                array[1][2] == array[2][2] &&
+
+                array[0][0] != array[0][1] &&
+                array[0][0] != array[0][2] &&
+                array[0][0] != array[0][3] &&
+                array[0][1] != array[0][2] &&
+                array[0][1] != array[0][3] &&
+                array[0][2] != array[0][3] &&
+
+                array[1][0] != array[1][1] &&
+                array[1][0] != array[1][2] &&
+                array[1][0] != array[1][3] &&
+                array[1][1] != array[1][2] &&
+                array[1][1] != array[1][3] &&
+                array[1][2] != array[1][3] &&
+
+                array[2][0] != array[2][1] &&
+                array[2][0] != array[2][2] &&
+                array[2][0] != array[2][3] &&
+                array[2][1] != array[2][2] &&
+                array[2][1] != array[2][3] &&
+                array[2][2] != array[2][3]
+                    
+                ) finish = true;
         }
     }
 }
