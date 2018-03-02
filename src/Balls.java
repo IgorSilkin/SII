@@ -4,6 +4,8 @@ import java.util.Random;
 public class Balls {
     int row = 3;
     int column = 4;
+    int depth = 10;
+    int scetchik = 0;
 
     int maxBallsArray[] = new int[column];
     int array[][] = new int[row][column];
@@ -59,45 +61,56 @@ public class Balls {
         }
     }
     public void search(){
-        int k;
         while (finish == false){
-            k = rand.nextInt(2);
-            if(k == 0){
-                moveUp(rand.nextInt(column));
-            }else {
-                moveLeft(rand.nextInt(row));
-            }
-
-            if(
-                array[0][0] == array[1][0] &&
-                array[1][0] == array[2][0] &&
-                array[0][1] == array[1][1] &&
-                array[1][1] == array[2][1] &&
-                array[0][2] == array[1][2] &&
-                array[1][2] == array[2][2] &&
-
-                array[0][0] != array[0][1] &&
-                array[0][0] != array[0][2] &&
-                array[0][0] != array[0][3] &&
-                array[0][1] != array[0][2] &&
-                array[0][1] != array[0][3] &&
-                array[0][2] != array[0][3] &&
-
-                array[1][0] != array[1][1] &&
-                array[1][0] != array[1][2] &&
-                array[1][0] != array[1][3] &&
-                array[1][1] != array[1][2] &&
-                array[1][1] != array[1][3] &&
-                array[1][2] != array[1][3] &&
-
-                array[2][0] != array[2][1] &&
-                array[2][0] != array[2][2] &&
-                array[2][0] != array[2][3] &&
-                array[2][1] != array[2][2] &&
-                array[2][1] != array[2][3] &&
-                array[2][2] != array[2][3]
-                    
-                ) finish = true;
+            easyLevel();
         }
+        System.out.println("------------------------------------------");
+        show();
+        System.out.println("\nОперация: " + scetchik);
+        System.out.println("------------------------------------------");
+    }
+    public void easyLevel(){
+        int k = rand.nextInt(2);
+        if(k == 0){
+            moveUp(rand.nextInt(column));
+        }else {
+            moveLeft(rand.nextInt(row));
+        }
+        finish = finish();
+    }
+
+    public boolean finish(){
+        scetchik++;
+        if(
+            array[0][0] == array[1][0] &&
+            array[1][0] == array[2][0] &&
+            array[0][1] == array[1][1] &&
+            array[1][1] == array[2][1] &&
+            array[0][2] == array[1][2] &&
+            array[1][2] == array[2][2] &&
+
+            array[0][0] != array[0][1] &&
+            array[0][0] != array[0][2] &&
+            array[0][0] != array[0][3] &&
+            array[0][1] != array[0][2] &&
+            array[0][1] != array[0][3] &&
+            array[0][2] != array[0][3] &&
+
+            array[1][0] != array[1][1] &&
+            array[1][0] != array[1][2] &&
+            array[1][0] != array[1][3] &&
+            array[1][1] != array[1][2] &&
+            array[1][1] != array[1][3] &&
+            array[1][2] != array[1][3] &&
+
+            array[2][0] != array[2][1] &&
+            array[2][0] != array[2][2] &&
+            array[2][0] != array[2][3] &&
+            array[2][1] != array[2][2] &&
+            array[2][1] != array[2][3] &&
+            array[2][2] != array[2][3]) {
+            return true;
+        }
+        else return false;
     }
 }

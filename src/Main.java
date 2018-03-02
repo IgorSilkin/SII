@@ -4,6 +4,5 @@ public class Main {
         game.addBalls();
         game.show();
         game.search();
-        game.show();
     }
 }
