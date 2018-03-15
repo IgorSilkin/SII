@@ -2,11 +2,12 @@
 import java.util.Random;
 
 public class Balls {
-    int d = 0;
     int ROW = 3;
     int COLUMN = 4;
-    int maxBallsArray [] = new int[COLUMN];
-    int array [][] = new int[ROW][COLUMN];
+    int checks = 0;//кол-во проверок
+    int checksTrue = 0;//кол-во совпадений с массивом карт
+    int maxBallsArray [] = new int[COLUMN];//максимальное количество объектов каждого вида на карте
+    int array [][] = new int[ROW][COLUMN];//карта
 
     final Random rand = new Random();
 
@@ -30,7 +31,7 @@ public class Balls {
                 }
             }
         }
-    }
+    }//Конструктор. Генерирует рандомное поле
 
     public void search_operation_by_id(int id){
         if (id < COLUMN){
@@ -38,7 +39,7 @@ public class Balls {
         }else if(id < ROW + COLUMN){
             moveLeft(id - COLUMN);
         }
-    }
+    }//Функция получает число и вызывает функции изменения поля
 
     public void moveUp(int col){
         int k = array[0][col];
@@ -46,14 +47,14 @@ public class Balls {
             array[i][col] = array[i+1][col];
         }
         array[ROW-1][col] = k;
-    }
+    }//передвижение столбца вверх
     public void moveLeft(int row){
         int k = array[row][0];
         for (int i = 0; i < COLUMN - 1; i++) {
             array[row][i] = array[row][i + 1];
         }
         array[row][COLUMN - 1] = k;
-    }
+    }//передвижение строки влево
 
     public int [][] show(int [][] array, int row, int col){
         System.out.println();
@@ -64,7 +65,7 @@ public class Balls {
             System.out.println();
         }
         return array;
-    }
+    }//отображение поля
     public String goToString(){
         String str = "";
         for(int i = 0; i < ROW; i++){
@@ -73,7 +74,7 @@ public class Balls {
             }
         }
         return str;
-    }
+    }//перевод массива в строку
     public void goToArray(String str){
         int k = 0;
         for(int i = 0; i < str.length(); i++){
@@ -88,9 +89,10 @@ public class Balls {
                 this.array[k][i % this.COLUMN] = Integer.parseInt("" + str.charAt(i));
             }
         }
-    }
+    }//перевод строки в массив
 
     public boolean finish(){
+        checks++;
         if(
             array[0][0] == array[1][0] &&
             array[1][0] == array[2][0] &&
@@ -119,9 +121,8 @@ public class Balls {
             array[2][1] != array[2][2] &&
             array[2][1] != array[2][3] &&
             array[2][2] != array[2][3]) {
-            d++;
             return true;
         }
         else return false;
-    }
+    }//проверка условий окончания игры
 }
