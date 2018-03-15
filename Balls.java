@@ -2,7 +2,7 @@
 import java.util.Random;
 
 public class Balls {
-
+    int d = 0;
     int ROW = 3;
     int COLUMN = 4;
     int maxBallsArray [] = new int[COLUMN];
@@ -10,7 +10,7 @@ public class Balls {
 
     final Random rand = new Random();
 
-    public void addBalls(){
+    Balls(){
         int k;
         boolean ok;
 
@@ -29,6 +29,14 @@ public class Balls {
                     }
                 }
             }
+        }
+    }
+
+    public void search_operation_by_id(int id){
+        if (id < COLUMN){
+            moveUp(id);
+        }else if(id < ROW + COLUMN){
+            moveLeft(id - COLUMN);
         }
     }
 
@@ -66,7 +74,21 @@ public class Balls {
         }
         return str;
     }
-
+    public void goToArray(String str){
+        int k = 0;
+        for(int i = 0; i < str.length(); i++){
+            if (i == 0){
+                this.array[k][i % this.COLUMN] =  Integer.parseInt("" + str.charAt(i));
+            }
+            if(i % this.COLUMN > 0 && i != 0){
+                this.array[k][i % this.COLUMN] = Integer.parseInt("" + str.charAt(i));
+            }
+            if (i % this.COLUMN == 0 && i != 0) {
+                k++;
+                this.array[k][i % this.COLUMN] = Integer.parseInt("" + str.charAt(i));
+            }
+        }
+    }
 
     public boolean finish(){
         if(
@@ -97,6 +119,7 @@ public class Balls {
             array[2][1] != array[2][2] &&
             array[2][1] != array[2][3] &&
             array[2][2] != array[2][3]) {
+            d++;
             return true;
         }
         else return false;
